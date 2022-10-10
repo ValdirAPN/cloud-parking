@@ -67,8 +67,8 @@ public class ParkingController {
 
     @PostMapping("/{id}")
     @Operation(summary = "Exit from parking")
-    public ResponseEntity exit(@PathVariable String id) {
-        var parking = parkingService.exit(id);
+    public ResponseEntity checkout(@PathVariable String id) {
+        var parking = parkingService.checkout(id);
         return ResponseEntity.ok(parking);
     }
 }
