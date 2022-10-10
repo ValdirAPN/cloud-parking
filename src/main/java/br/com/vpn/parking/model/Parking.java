@@ -1,6 +1,7 @@
 package br.com.vpn.parking.model;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class Parking {
 
@@ -22,6 +23,15 @@ public class Parking {
     }
 
     public Parking() {}
+
+    private void calculateBill() {
+        var basePrice = 5.0;
+        var pricePerHour = 2.0;
+        var pricePerMinute = pricePerHour / 60;
+        var timeOfUse = ChronoUnit.MINUTES.between(entryDate, exitDate);
+
+        setBill(basePrice + (timeOfUse * pricePerMinute));
+    }
 
     public String getId() {
         return id;
@@ -76,14 +86,16 @@ public class Parking {
     }
 
     public void setExitDate(LocalDateTime exitDate) {
+
         this.exitDate = exitDate;
+        this.calculateBill();
     }
 
     public Double getBill() {
         return bill;
     }
 
-    public void setBill(Double bill) {
+    private void setBill(Double bill) {
         this.bill = bill;
     }
 }
