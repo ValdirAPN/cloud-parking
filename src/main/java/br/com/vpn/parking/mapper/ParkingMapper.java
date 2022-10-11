@@ -1,6 +1,6 @@
 package br.com.vpn.parking.mapper;
 
-import br.com.vpn.parking.dto.ParkingCreateDTO;
+import br.com.vpn.parking.dto.ParkingFormDTO;
 import br.com.vpn.parking.dto.ParkingDTO;
 import br.com.vpn.parking.model.Parking;
 import org.modelmapper.ModelMapper;
@@ -26,7 +26,7 @@ public class ParkingMapper {
         return MODEL_MAPPER.map(dto, Parking.class);
     }
 
-    public Parking toParkingCreate(ParkingCreateDTO dto) {
+    public Parking parkingFormToParking(ParkingFormDTO dto) {
         return MODEL_MAPPER.map(dto, Parking.class);
     }
 }

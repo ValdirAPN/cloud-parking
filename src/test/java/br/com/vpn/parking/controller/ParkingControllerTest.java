@@ -1,6 +1,6 @@
 package br.com.vpn.parking.controller;
 
-import br.com.vpn.parking.dto.ParkingCreateDTO;
+import br.com.vpn.parking.dto.ParkingFormDTO;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +34,7 @@ class ParkingControllerTest extends AbstractContainerBase {
 
     @Test
     void whenCreateThenCheckIsCreated() {
-        var createDTO = new ParkingCreateDTO();
+        var createDTO = new ParkingFormDTO();
         createDTO.setColor("AMARELO");
         createDTO.setLicense("WRT-5555");
         createDTO.setModel("VW POLO");

@@ -1,6 +1,6 @@
 package br.com.vpn.parking.dto;
 
-public class ParkingCreateDTO {
+public class ParkingFormDTO {
 
     private String license;
     private String state;

@@ -3,6 +3,7 @@ package br.com.vpn.parking.service;
 import br.com.vpn.parking.exception.ParkingNotFoundException;
 import br.com.vpn.parking.model.Parking;
 import br.com.vpn.parking.repository.ParkingRepository;
+import br.com.vpn.parking.util.IdUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +33,7 @@ public class ParkingService {
 
     @Transactional
     public Parking create(Parking parkingCreate) {
-        String id = getUUID();
+        var id = IdUtil.getUUID();
         parkingCreate.setId(id);
         parkingCreate.setEntryDate(LocalDateTime.now());
 
@@ -66,8 +67,5 @@ public class ParkingService {
         return parking;
     }
 
-    private static String getUUID() {
 
-        return UUID.randomUUID().toString().replace("-", "");
-    }
 }

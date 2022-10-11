@@ -1,6 +1,6 @@
 package br.com.vpn.parking.controller;
 
-import br.com.vpn.parking.dto.ParkingCreateDTO;
+import br.com.vpn.parking.dto.ParkingFormDTO;
 import br.com.vpn.parking.dto.ParkingDTO;
 import br.com.vpn.parking.mapper.ParkingMapper;
 import br.com.vpn.parking.service.ParkingService;
@@ -51,8 +51,8 @@ public class ParkingController {
 
     @PostMapping
     @Operation(summary = "Create a new parking")
-    public ResponseEntity<ParkingDTO> create(@RequestBody ParkingCreateDTO dto) {
-        var parkingCreate = parkingMapper.toParkingCreate(dto);
+    public ResponseEntity<ParkingDTO> create(@RequestBody ParkingFormDTO dto) {
+        var parkingCreate = parkingMapper.parkingFormToParking(dto);
         var parking = parkingService.create(parkingCreate);
         var result = parkingMapper.toParkingDTO(parking);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
@@ -60,8 +60,8 @@ public class ParkingController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a parking")
-    public ResponseEntity<ParkingDTO> update(@PathVariable String id, @RequestBody ParkingCreateDTO dto) {
-        var parkingCreate = parkingMapper.toParkingCreate(dto);
+    public ResponseEntity<ParkingDTO> update(@PathVariable String id, @RequestBody ParkingFormDTO dto) {
+        var parkingCreate = parkingMapper.parkingFormToParking(dto);
         var parking = parkingService.update(id, parkingCreate);
         var result = parkingMapper.toParkingDTO(parking);
         return ResponseEntity.ok(result);
