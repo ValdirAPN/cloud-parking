@@ -3,7 +3,6 @@ package br.com.vpn.parking.controller;
 import br.com.vpn.parking.dto.ParkingCreateDTO;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
-import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +24,8 @@ class ParkingControllerTest extends AbstractContainerBase {
     @Test
     void whenFindAllThenCheckResult() {
         RestAssured.given()
+                .auth()
+                .basic("user", "Dio@123456")
                 .when()
                 .get("/parking")
                 .then()
@@ -40,9 +41,11 @@ class ParkingControllerTest extends AbstractContainerBase {
         createDTO.setState("SP");
 
         RestAssured.given()
+                .auth()
+                .basic("user", "Dio@123456")
                 .when()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(createDTO)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .post("/parking")
                 .then()
                 .statusCode(HttpStatus.CREATED.value())

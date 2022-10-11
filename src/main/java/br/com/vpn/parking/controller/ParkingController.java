@@ -5,6 +5,7 @@ import br.com.vpn.parking.dto.ParkingDTO;
 import br.com.vpn.parking.mapper.ParkingMapper;
 import br.com.vpn.parking.service.ParkingService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/parking")
+@SecurityRequirement(name = "api")
 public class ParkingController {
 
     private final ParkingService parkingService;
