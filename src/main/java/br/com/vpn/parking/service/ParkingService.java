@@ -1,5 +1,6 @@
 package br.com.vpn.parking.service;
 
+import br.com.vpn.parking.exception.CarNotFoundException;
 import br.com.vpn.parking.exception.ParkingNotFoundException;
 import br.com.vpn.parking.model.Parking;
 import br.com.vpn.parking.repository.ParkingRepository;
@@ -48,23 +49,15 @@ public class ParkingService {
     }
 
     @Transactional
-    public Parking update(String id, Parking parkingCreate) {
-        Parking parking = findById(id);
-        parking.setColor(parkingCreate.getColor());
-        parking.setState(parkingCreate.getState());
-        parking.setModel(parkingCreate.getModel());
-        parking.setLicense(parkingCreate.getLicense());
-        parkingRepository.save(parking);
-        return parking;
-    }
-
-
-    @Transactional
     public Parking checkout(String id) {
         Parking parking = findById(id);
         parking.setExitDate(LocalDateTime.now());
         parkingRepository.save(parking);
         return parking;
+    }
+
+    public List<Parking> findByCarId(String id) throws CarNotFoundException {
+        return parkingRepository.findAllByCarId(id);
     }
 
 

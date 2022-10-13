@@ -2,40 +2,13 @@ package br.com.vpn.parking.dto;
 
 public class ParkingFormDTO {
 
-    private String license;
-    private String state;
-    private String model;
-    private String color;
+    private String carId;
 
-    public String getLicense() {
-        return license;
+    public String getCarId() {
+        return carId;
     }
 
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
+    public void setCarId(String carId) {
+        this.carId = carId;
     }
 }

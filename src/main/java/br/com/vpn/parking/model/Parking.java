@@ -1,7 +1,6 @@
 package br.com.vpn.parking.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -10,21 +9,12 @@ public class Parking {
 
     @Id
     private String id;
-    private String license;
-    private String state;
-    private String model;
-    private String color;
+    @ManyToOne()
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    private Car car;
     private LocalDateTime entryDate;
     private LocalDateTime exitDate;
     private Double bill;
-
-    public Parking(String id, String license, String state, String model, String color) {
-        this.id = id;
-        this.license = license;
-        this.state = state;
-        this.model = model;
-        this.color = color;
-    }
 
     public Parking() {}
 
@@ -37,6 +27,10 @@ public class Parking {
         setBill(basePrice + (timeOfUse * pricePerMinute));
     }
 
+    public boolean isActive() {
+        return exitDate == null;
+    }
+
     public String getId() {
         return id;
     }
@@ -45,36 +39,12 @@ public class Parking {
         this.id = id;
     }
 
-    public String getLicense() {
-        return license;
+    public Car getCar() {
+        return car;
     }
 
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public LocalDateTime getEntryDate() {

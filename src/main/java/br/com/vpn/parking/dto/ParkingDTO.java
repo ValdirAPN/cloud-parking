@@ -9,10 +9,7 @@ import java.time.LocalDateTime;
 public class ParkingDTO {
 
     private String id;
-    private String license;
-    private String state;
-    private String model;
-    private String color;
+    private String carId;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime entryDate;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
@@ -27,36 +24,12 @@ public class ParkingDTO {
         this.id = id;
     }
 
-    public String getLicense() {
-        return license;
+    public String getCarId() {
+        return carId;
     }
 
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
+    public void setCarId(String carId) {
+        this.carId = carId;
     }
 
     public LocalDateTime getEntryDate() {

@@ -5,5 +5,6 @@ public enum Brand {
     CHEVROLET,
     HYUNDAI,
     MITSUBISHI,
-    CHERY
+    CHERY,
+    TOYOTA
 }

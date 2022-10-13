@@ -4,16 +4,15 @@ import br.com.vpn.parking.dto.CarDTO;
 import br.com.vpn.parking.dto.CarFormDTO;
 import br.com.vpn.parking.dto.ParkingDTO;
 import br.com.vpn.parking.mapper.CarMapper;
+import br.com.vpn.parking.mapper.ParkingMapper;
 import br.com.vpn.parking.service.CarService;
+import br.com.vpn.parking.service.ParkingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,11 +22,15 @@ import java.util.List;
 public class CarController {
 
     private final CarService carService;
+    private final ParkingService parkingService;
     private final CarMapper carMapper;
+    private final ParkingMapper parkingMapper;
 
-    public CarController(CarService carService, CarMapper carMapper) {
+    public CarController(CarService carService, ParkingService parkingService, CarMapper carMapper, ParkingMapper parkingMapper) {
         this.carService = carService;
+        this.parkingService = parkingService;
         this.carMapper = carMapper;
+        this.parkingMapper = parkingMapper;
     }
 
     @GetMapping
@@ -46,5 +49,13 @@ public class CarController {
         var car = carService.create(carCreate);
         var result = carMapper.toCarDTO(car);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
+    @GetMapping("/{id}/parking/")
+    @Operation(summary = "List all car's parking lots history")
+    public ResponseEntity<List<ParkingDTO>> findAllParkingLots(@PathVariable String id) {
+        var parkingLots = parkingService.findByCarId(id);
+        var result = parkingMapper.toParkingDTOList(parkingLots);
+        return ResponseEntity.ok(result);
     }
 }
