@@ -1,8 +1,10 @@
 package br.com.vpn.parking.service;
 
+import br.com.vpn.parking.exception.CarAlreadyParkedException;
 import br.com.vpn.parking.exception.CarNotFoundException;
 import br.com.vpn.parking.exception.ParkingNotFoundException;
 import br.com.vpn.parking.model.Parking;
+import br.com.vpn.parking.repository.CarRepository;
 import br.com.vpn.parking.repository.ParkingRepository;
 import br.com.vpn.parking.util.IdUtil;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,11 @@ import java.util.*;
 public class ParkingService {
 
     private final ParkingRepository parkingRepository;
+    private final CarService carService;
 
-    public ParkingService(ParkingRepository parkingRepository) {
+    public ParkingService(ParkingRepository parkingRepository, CarService carService) {
         this.parkingRepository = parkingRepository;
+        this.carService = carService;
     }
 
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -34,6 +38,10 @@ public class ParkingService {
 
     @Transactional
     public Parking create(Parking parkingCreate) {
+        var car = carService.findById(parkingCreate.getCar().getId());
+        var hasActiveParking = car.hasActiveParking();
+        if (hasActiveParking) throw new CarAlreadyParkedException(car.getId());
+
         var id = IdUtil.getUUID();
         parkingCreate.setId(id);
         parkingCreate.setEntryDate(LocalDateTime.now());

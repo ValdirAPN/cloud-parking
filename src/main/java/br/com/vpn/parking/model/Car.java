@@ -1,6 +1,7 @@
 package br.com.vpn.parking.model;
 
 import br.com.vpn.parking.enums.Brand;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,6 +17,11 @@ public class Car {
     private String license;
     @OneToMany(mappedBy = "car")
     private List<Parking> parkingList;
+
+    public boolean hasActiveParking() {
+        if (parkingList == null) return false;
+        return parkingList.stream().anyMatch(Parking::isActive);
+    }
 
     public String getId() {
         return id;

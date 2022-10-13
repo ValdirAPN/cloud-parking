@@ -1,5 +1,7 @@
 package br.com.vpn.parking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -9,6 +11,7 @@ public class Parking {
 
     @Id
     private String id;
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
