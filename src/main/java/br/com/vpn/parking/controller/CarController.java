@@ -51,6 +51,13 @@ public class CarController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a car")
+    public ResponseEntity delete(@PathVariable String id) {
+        carService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/{id}/parking/")
     @Operation(summary = "List all car's parking lots history")
     public ResponseEntity<List<ParkingDTO>> findAllParkingLots(@PathVariable String id) {
